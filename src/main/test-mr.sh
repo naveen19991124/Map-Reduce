@@ -5,7 +5,7 @@
 #
 
 # un-comment this to run the tests with the Go race detector.
-# RACE=-race
+RACE=-race
 
 if [[ "$OSTYPE" = "darwin"* ]]
 then
@@ -296,7 +296,7 @@ sleep 1
 maybe_quiet $TIMEOUT2 ../mrworker ../../mrapps/crash.so &
 
 # mimic rpc.go's coordinatorSock()
-SOCKNAME=/var/tmp/5840-mr-`id -u`
+SOCKNAME=/Users/naveen.kumar3/Downloads/Map-Reduce-MIT-Lab-1/6.5840-mr-`id -u`
 
 ( while [ -e $SOCKNAME -a ! -f mr-done ]
   do

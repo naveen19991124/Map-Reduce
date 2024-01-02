@@ -1,36 +1,45 @@
 package mr
 
-//
 // RPC definitions.
-//
-// remember to capitalize all names.
-//
 
-import "os"
-import "strconv"
+import (
+	"os"
+	"strconv"
+)
 
-//
-// example to show how to declare the arguments
-// and reply for an RPC.
-//
+type TaskType int
 
-type ExampleArgs struct {
-	X int
+const (
+	Map TaskType = iota + 1
+	Reduce
+)
+
+func (taskType *TaskType) String() string {
+	return [...]string{"Map", "Reduce"}[*taskType-1]
 }
 
-type ExampleReply struct {
-	Y int
+type GetTaskArgs struct{}
+
+type GetTaskReply struct {
+	Task *Task
 }
 
-// Add your RPC definitions here.
+type ReportTaskCompletionArgs struct {
+	PrevState TaskState
+	NewState  TaskState
+	TaskId    int
+}
 
+type ReportTaskCompletionReply struct {
+	TaskId int
+}
 
 // Cook up a unique-ish UNIX-domain socket name
 // in /var/tmp, for the coordinator.
 // Can't use the current directory since
 // Athena AFS doesn't support UNIX-domain sockets.
 func coordinatorSock() string {
-	s := "/var/tmp/5840-mr-"
+	s := "/Users/naveen.kumar3/Downloads/Map-Reduce-MIT-Lab-1/6.5840-mr-"
 	s += strconv.Itoa(os.Getuid())
 	return s
 }
